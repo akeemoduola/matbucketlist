@@ -6,7 +6,7 @@ class BucketlistsController < ApplicationController
     @page = params[:page].to_i < 1 ? 1 : params[:page].to_i
     @limit = params[:limit].to_i < 1 ? 20 : params[:limit].to_i
     @offset = (@page - 1) * @limit
-    @bucketlists = @current_user.bucketlists.limit(@limit)
+    @bucketlists = @current_user.bucketlists.search(params[:q]).limit(@limit)
                     .offset(@offset).order(:id)
 
     render json: @bucketlists
@@ -47,6 +47,6 @@ class BucketlistsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def bucketlist_params
-    params.permit(:name, :page, :limit)
+    params.permit(:name, :page, :limit, :q)
   end
 end
