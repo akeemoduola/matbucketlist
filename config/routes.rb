@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :bucketlists do
+    resources :items, only: [:create, :update, :destroy]
+  end
   post 'auth/login'
 
   get 'auth/logout'
