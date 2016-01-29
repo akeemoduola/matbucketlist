@@ -24,7 +24,7 @@ module Api
         @bucketlist = @current_user.bucketlists.new(bucketlist_params)
         @bucketlist.created_by = @current_user.id
         if @bucketlist.save
-          render json: @bucketlist, status: :created, location: @bucketlist
+          render json: { message: "Bucketlist successfully created." }, status: :created
         else
           render json: @bucketlist.errors, status: :unprocessable_entity
         end
@@ -33,7 +33,7 @@ module Api
       # PATCH/PUT /bucketlists/1
       def update
         if @bucketlist.update(bucketlist_params)
-          render json: @bucketlist, status: 200
+          render json: { "message": "Bucketlist updated!" }, status: 200
         else
           render json: @bucketlist.errors, status: :unprocessable_entity
         end

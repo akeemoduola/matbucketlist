@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby "2.2.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '>= 5.0.0.beta1', '< 5.1'
@@ -13,6 +13,8 @@ gem 'active_model_serializers', '~> 0.10.0.rc2'
 gem 'jwt', '~> 1.5.1'
 gem 'bcrypt'
 gem "figaro", "~> 1.1", ">= 1.1.1"
+gem "coveralls", "~> 0.8.10", require: false
+gem 'rails_12factor'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -24,6 +26,7 @@ gem "figaro", "~> 1.1", ">= 1.1.1"
 
 group :development, :test do
   gem "pry"
+  gem "pry-nav"
   gem "rspec-rails", git: "https://github.com/rspec/rspec-rails.git", branch: "master"
   gem "rspec-core", git: "https://github.com/rspec/rspec-core.git", branch: "master"
   gem "rspec-support", git: "https://github.com/rspec/rspec-support.git", branch: "master"
@@ -34,6 +37,7 @@ group :development, :test do
   gem "faker", "~> 1.6", ">= 1.6.1"
   gem "database_cleaner"
   gem 'rails_apps_testing'
+  gem "codeclimate-test-reporter", "~> 0.4.8", require: nil
 end
 
 group :development do

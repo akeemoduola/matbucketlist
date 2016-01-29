@@ -1,5 +1,4 @@
 require 'jwt'
-
 class JsonWebToken
   def self.encode(payload, expiration = 24.hours.from_now)
     payload = payload.dup

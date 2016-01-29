@@ -2,26 +2,14 @@ module Api
   module V1
     class ItemsController < ApplicationController
       before_action :set_bucketlist
-      before_action :set_item, only: [:show, :update, :destroy]
-
-      # GET /items
-      def index
-        @items = @bucketlist.items.order(id: :desc)
-
-        render json: @items
-      end
-
-      # GET /items/1
-      def show
-        render json: @item
-      end
+      before_action :set_item, only: [:update, :destroy]
 
       # POST /items
       def create
         @item = @bucketlist.items.new(item_params)
 
         if @item.save
-          render json: @item, status: :created
+          render json: { message: "Item successfully created." }, status: :created
         else
           render json: @item.errors, status: :unprocessable_entity
         end

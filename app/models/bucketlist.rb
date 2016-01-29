@@ -6,6 +6,7 @@ class Bucketlist < ApplicationRecord
   validates :created_by, presence: true
 
   def self.search(query)
-    where("name ilike ?", "%#{query}%")
+    query = "%#{query}%"
+    where(arel_table[:name].matches(query))
   end
 end
