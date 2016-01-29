@@ -13,6 +13,18 @@
 !/log/.keep
 !/tmp/.keep
 /coverage/*
+<<<<<<< HEAD
+!/coverage/.keep
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+!/coverage/.keep
+=======
+>>>>>>> 29dc53b... Token Based Authentication
+=======
+!/coverage/.keep
+>>>>>>> 6bce877... API Testing & Documentation
+>>>>>>> 5f039dc... API Testing & Documentation
 # Ignore Byebug command history file.
 .byebug_history
 

@@ -1,27 +1,15 @@
 module Api
   module V1
     class ItemsController < ApplicationController
-      before_action :set_bucketlist
-      before_action :set_item, only: [:show, :update, :destroy]
-
-      # GET /items
-      def index
-        @items = @bucketlist.items.order(id: :desc)
-
-        render json: @items
-      end
-
-      # GET /items/1
-      def show
-        render json: @item
-      end
+      before_action :set_item, only: [:update, :destroy]
 
       # POST /items
       def create
-        @item = @bucketlist.items.new(item_params)
+        @item = Item.new(item_params)
 
         if @item.save
-          render json: @item, status: :created
+          render json: { message: "Item successfully created." },
+                 status: :created
         else
           render json: @item.errors, status: :unprocessable_entity
         end
@@ -30,7 +18,7 @@ module Api
       # PATCH/PUT /items/1
       def update
         if @item.update(item_params)
-          render json: @item, status: 200
+          render json: { message: "Item successfully updated." }, status: 200
         else
           render json: @item.errors, status: :unprocessable_entity
         end
@@ -43,11 +31,12 @@ module Api
       end
 
       private
+
       # Use callbacks to share common setup or constraints between actions.
       def set_item
-        @item = @bucketlist.items.find_by_id(params[:id])
+        @item = Item.find_by(id: params[:id])
         if @item.blank?
-          msg = "Item with id:#{params[:id]} doesnt exist in this bucketlist"
+          msg = "Item with id:#{params[:id]} does not exist in this bucketlist"
           msg = { error: msg }
           render json: msg, status: :unprocessable_entity
         end

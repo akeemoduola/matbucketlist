@@ -35,8 +35,8 @@ class ApplicationController < ActionController::API
   end
 
   def http_auth_token
-    @http_auth_token ||= if request.headers['Authorization'].present?
-                           request.headers['Authorization'].split(' ').last
+    @http_auth_token ||= if request.headers["Authorization"].present?
+                           request.headers["Authorization"].split(" ").last
                          end
   end
 
@@ -49,9 +49,12 @@ class ApplicationController < ActionController::API
 
   # Helper Methods for responding to errors#
   def authentication_timeout
-    render json: { errors: ['Token has expired. Re-login for a new token.'] }, status: 419
+    render json: { errors: ["Token has expired. Re-login for a new token."] },
+           status: 419
   end
+
   def user_not_authenticated
-    render json: { errors: ["You are not authorized to perform this action."] }, status: :unauthorized
+    render json: { errors: ["You are not authorized to perform this action."] },
+           status: :unauthorized
   end
 end

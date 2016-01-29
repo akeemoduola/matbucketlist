@@ -3,12 +3,12 @@ class BucketlistSerializer < ActiveModel::Serializer
   has_many :items
 
   def date_created
-     date = object.created_at
-     date.strftime("%F %T")
-   end
+    date = object.created_at
+    date.strftime("%F %T")
+  end
 
-   def date_modified
-     date = object.updated_at
-     date.strftime("%F %T")
-   end
+  def date_modified
+    date = object.updated_at
+    date.strftime("%F %T")
+  end
 end

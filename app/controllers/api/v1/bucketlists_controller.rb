@@ -5,12 +5,7 @@ module Api
 
       # GET /bucketlists
       def index
-        @page = params[:page].to_i < 1 ? 1 : params[:page].to_i
-        @limit = params[:limit].to_i < 1 ? 20 : params[:limit].to_i
-        @offset = (@page - 1) * @limit
-        @bucketlists = @current_user.bucketlists.search(params[:q]).limit(@limit)
-                        .offset(@offset).order(:id)
-
+        @bucketlists = @current_user.bucketlists.get_bucketlist(query_params)
         render json: @bucketlists
       end
 
@@ -24,7 +19,8 @@ module Api
         @bucketlist = @current_user.bucketlists.new(bucketlist_params)
         @bucketlist.created_by = @current_user.id
         if @bucketlist.save
-          render json: @bucketlist, status: :created, location: @bucketlist
+          render json: { message: "Bucketlist successfully created." },
+                 status: :created
         else
           render json: @bucketlist.errors, status: :unprocessable_entity
         end
@@ -33,7 +29,7 @@ module Api
       # PATCH/PUT /bucketlists/1
       def update
         if @bucketlist.update(bucketlist_params)
-          render json: @bucketlist, status: 200
+          render json: { message: "Bucketlist updated!" }, status: 200
         else
           render json: @bucketlist.errors, status: :unprocessable_entity
         end
@@ -49,7 +45,11 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def bucketlist_params
-        params.permit(:name, :page, :limit, :q)
+        params.permit(:name)
+      end
+
+      def query_params
+        params.permit(:q, :page, :limit)
       end
     end
   end

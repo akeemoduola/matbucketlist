@@ -1,8 +1,7 @@
 FactoryGirl.define do
   factory :item do
-    name "MyString"
-done false
-bucketlist nil
+    name { Faker::Lorem.sentence }
+    done false
+    bucketlist
   end
-
 end
